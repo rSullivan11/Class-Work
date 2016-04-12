@@ -2,16 +2,45 @@ package occ.cs272.ic10;
 
 public class LinkedList_2<E> implements Sequence<E>
 {
-    // TODO: Implement these two methods from the Sequence Interface
     // Then, eliminate all of the other add/remove methods
-    public E remove(Iterator<E> iter)
+    public E remove(Iterator<E> iterator)
     {
-        return null; // replace this, of course
+        E result = iterator.get();
+        SLLIterator<E> iter = (SLLIterator<E>) iterator;
+        --size;
+        
+        if (! iter.hasNext()) {
+            if (iter.prev == null) head = tail = null;
+            else {
+                iter.prev.next = null;
+                tail = iter.prev;
+            }
+        } else if (iter.prev == null) head = head.next;
+        else
+            iter.prev.next = iter.cur.next;
+        
+        return result;
     }
 
-    public void add(Iterator<E> iter, E element)
+    public void add(Iterator<E> iterator, E element)
     {
         // Your code goes here
+        SLLIterator<E> iter = (SLLIterator<E>)iterator;
+        Node<E> n = new Node<>();
+        n.data = element;
+        
+        ++size;
+        if (! iter.hasNext()) {
+            if (head == null) head = n;
+            else tail.next = n;
+            tail = n;
+        } else if (iter.prev == null) {
+            n.next = head;
+            head = n;
+        } else {
+            n.next = iter.cur;
+            iter.prev.next = n;
+        }
     }
 
     ///////////////// IMPLEMENTING THE ITERATOR INTERFACE
