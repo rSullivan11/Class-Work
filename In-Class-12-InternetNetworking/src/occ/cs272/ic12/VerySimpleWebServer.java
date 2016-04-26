@@ -33,7 +33,7 @@ public class VerySimpleWebServer
             try
             {
                 final int PORT = 12345;
-                String docBase = new File("U:/").getCanonicalPath();
+                String docBase = new File("C:/").getCanonicalPath();
 
                 // Start listening for requests
                 ServerSocket server = new ServerSocket(PORT);
